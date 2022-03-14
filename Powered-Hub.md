@@ -1,6 +1,6 @@
 # Powered Hub for SSD with 4B
 
-If you perform a search for "pi 4B ssd problem", you will find a lot of hits that identify the problem (usually) as an incompatible SATA <-> USB 3 adapter. The suggested fix is to add "usb-storage.quirks=nnnn:nnnn" to the boot options in `/boot/cmdline.txt` to disable the UASP driver. I am loath to do this as it will cost performance. SSD performance is already hobbled by the USB translation and I'm all about getting the most performance out pf my Raspberry Pis. (*) I'm thrilled with the Pi 4B and want to get maximum performance from it and that means
+If you perform a search for "pi 4B ssd problem", you will find a lot of hits that identify the problem (usually) as an incompatible SATA <-> USB 3 adapter. The suggested fix is to add "usb-storage.quirks=nnnn:nnnn" to the boot options in `/boot/cmdline.txt` to disable the UASP driver. I am loath to do this as it will cost performance. SSD performance is already hobbled by the USB translation and I'm all about getting the most performance out of my Raspberry Pis. (*) I'm thrilled with the Pi 4B and want to get maximum performance from it and that means
 
 * 64 bit OS
 * SSD (using UASP driver)
@@ -12,12 +12,12 @@ I believe that the SSD issues are actually a power problem. Initially I did some
 
 ## Qualification
 
-I perform a number of tests to determine of the Pi 4/SSD (wioth or without powered hub) is stable.
+I perform a number of tests to determine of the Pi 4/SSD (with or without powered hub) is stable.
 
 * Does it boot? Necessary but not sufficient.
-* confirm that the UAS driver is in use. `lsusb -t`
-* Are there low voltage woanings in `dmesg` output following boot? (`dmesg|grep -i volt`)
-* Run a series of disk benchmarks. Monitor dmesg output for voltage or SSD issues. I'm using either an approved Pi 4B power supply or the power supply that came with the hub. I almost never see low voltage warnings but when the SSD seems to be taking too long to respond, there may be messages in the logs indicating that the SSD is not responding and has bene reset.
+* Confirm that the UAS driver is in use. `lsusb -t`
+* Check for low voltage wornings in `dmesg` output following boot. (`dmesg|grep -i volt`)
+* Run a series of disk benchmarks. Monitor dmesg output for voltage or SSD issues. I'm using either an approved Pi 4B power supply or the power supply that came with the hub. I almost never see low voltage warnings but when the SSD seems to be taking too long to respond, there may be messages in the logs indicating that the SSD is not responding and has been reset.
     * `dd` benchmark (custom script.)
     * `time fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name="imara,240GB_Inland_Raspbian_64" --filename=test.dat --bs=4k --iodepth=64 --size=4G --readwrite=randrw --rwmixread=75` (Remember to delete `test.dat` following the run.)
     * `time sudo bonnie++ -u root -d . -s 20000M -n 10:102400:1024:1024`
@@ -44,8 +44,8 @@ Test setup
 * Pi powered from the hub.
 * Inland Professional 240GB SSD
 * Eluteng SSD <-> SATA adapter.
-* Logitech wireless mouse with unifying receiver
-* Ducky Shine keyboard (with LEDs off. \<rolls eyes\ker >)
+* Logitech wireless mouse with unifying receiver.
+* Ducky Shine keyboard (with LEDs off. \<rolls eyes\>)
 * Meter "USB Digital Tester" model "J7-c"
 
 With meter between hub and SSD the power flow indicator is right to left as viewed upside down. In the table below power flow in this direction will be indicated by positive current values. Negative values will indicate a backfeed.
@@ -66,4 +66,4 @@ Unless The indicator on the meter is not telling me what I think it is telling m
 ## Other options
 
 * EYOOLD SATA <-> USB adapter with 2A power supply. Raspberry Pi can't boot from this adapter.
-*  Gyges USB <-> SATA adapter with two USB cables. I thought it might provide enough power from 2 USB connectors on the Pi but it seems not to. It boots OK and runs for a while before the SSD hangs, likely due to insufficient power. This is the same behavior experienced with an unpowered (but otherwise working) adapter.f
+*  Gyges USB <-> SATA adapter with two USB cables. I thought it might provide enough power from 2 USB connectors on the Pi but it seems not to. It boots OK and runs for a while before the SSD hangs, likely due to insufficient power. This is the same behavior experienced with an unpowered (but otherwise working) adapter.
