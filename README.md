@@ -19,3 +19,7 @@ I run Debian [tailored for the Pi](https://raspi.debian.net/) on some Pi 4Bs. I 
 ## Powered USB hubs
 
 Necessary for SSDs on the Pi 4B. More to come.
+
+## Contributing
+
+Feel free to submit a PR or otherwise point out typos. mispelings [sic] or ask for clarification for anything that doesn't seem clear, is ambiguous or otherwise needs improvement. I understand it but I wrote it. (Or it was hard for me to write so it should be hard to understand.)
